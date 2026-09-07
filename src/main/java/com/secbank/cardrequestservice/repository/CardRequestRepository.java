@@ -11,5 +11,7 @@ public interface CardRequestRepository extends JpaRepository<CardRequest, Long> 
 
     Optional<CardRequest> findByReference(String reference);
 
+    boolean existsByReference(String reference);
+
     List<CardRequest> findByStatus(CardRequestStatus status);
 }
