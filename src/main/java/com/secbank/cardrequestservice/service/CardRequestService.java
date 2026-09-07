@@ -102,12 +102,12 @@ public class CardRequestService {
     @Transactional
     public void advanceRequestStatuses() {
         for (CardRequest cardRequest : cardRequestRepository.findByStatus(
-                CardRequestStatus.PENDING)) {
-            advanceFromPending(cardRequest);
-        }
-        for (CardRequest cardRequest : cardRequestRepository.findByStatus(
                 CardRequestStatus.APPROVED)) {
             cardRequest.setStatus(CardRequestStatus.ISSUED);
+        }
+        for (CardRequest cardRequest : cardRequestRepository.findByStatus(
+                CardRequestStatus.PENDING)) {
+            advanceFromPending(cardRequest);
         }
     }
 
@@ -119,7 +119,7 @@ public class CardRequestService {
 
         if (customer.getRiskTier() == RiskTier.HIGH_RISK) {
             cardRequest.setStatus(CardRequestStatus.REJECTED);
-            cardRequest.setRejectionReason("Customer risk tier HIGH_RISK");
+            cardRequest.setRejectionReason("Rejected due to customer risk profile");
         } else {
             cardRequest.setStatus(CardRequestStatus.APPROVED);
         }
